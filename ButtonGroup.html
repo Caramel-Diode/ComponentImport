@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test</title>
+    <script src="script.js"></script>
+    <style desc="base-style">
+        :root {
+            background: #1f1f1f;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: grid;
+            place-items: center;
+            place-content: center;
+            height: 100vh;
+            width: 100vw;
+        }
+    </style>
+</head>
+
+<body>
+    <test2-button></test2-button>
+
+    <style inject>
+        :host {
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            gap: 10px;
+            padding: 12px 6px !important;
+            color: #eeeeee;
+            border-radius: 3px;
+            transition: box-shadow 200ms linear;
+        }
+
+    </style>
+
+    <template>
+        <my-button>${x}</my-button>
+        <my-button>${y}</my-button>
+        <my-button>${z}</my-button>
+    </template>
+    <component-import src="MyButton.html" rename="my-button"></component-import>
+    <script main>
+        customElements.define("button-group", class extends HTMLGDBaseElement {
+            constructor() {
+                super();
+                this.setAttribute("tabindex", "0");
+            }
+            connectedCallback() {
+                this.data = [
+                    ["x", "按钮1"],
+                    ["y", "按钮2"],
+                    ["z", "按钮3"],
+                ];
+                const shadowRoot = this.attachShadow({ mode: "open" });
+            }
+        });
+    </script>
+
+</body>
+
+</html>

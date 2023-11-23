@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="tag-name" content="test-button" />
+    <title>Test</title>
+    <script src="script.js"></script>
+    <style desc="base-style">
+        :root {
+            background: #1f1f1f;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: grid;
+            place-items: center;
+            place-content: center;
+            height: 100vh;
+            width: 100vw;
+        }
+    </style>
+
+</head>
+
+<body>
+    <test-button></test-button>
+
+    <style inject>
+        :host {
+            cursor: pointer;
+            user-select: none;
+            display: block;
+            background: linear-gradient(45deg, #40c36d, #36c0f4);
+            padding: 12px 6px !important;
+            color: #eeeeee;
+            border-radius: 3px;
+            transition: box-shadow 200ms linear;
+        }
+
+        :host(:hover),
+        :host(:focus) {
+            background: linear-gradient(-10deg, #40c36d, #36c0f4);
+            box-shadow: 0 0 6px #ffffff;
+            outline: none;
+        }
+
+        p {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0;
+        }
+    </style>
+
+    <template>
+        <slot>未插入内容</slot>
+    </template>
+
+    
+    <script main>
+        customElements.define("my-button", class extends HTMLGDBaseElement {
+            constructor() {
+                super();
+                this.setAttribute("tabindex", "0");
+            }
+            connectedCallback() {
+                this.data = [
+                    ["x", 1],
+                    ["y", 2]
+                ];
+                const shadowRoot = this.attachShadow({ mode: "open" });
+                this.addEventListener("click", () => alert("触发点击"));
+            }
+        });
+    </script>
+
+</body>
+
+</html>
